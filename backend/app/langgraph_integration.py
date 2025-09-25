@@ -20,6 +20,7 @@ Instructions for generating responses:
 - Highlight as links where "https://" is observed.
 """
 
+
 async def generate_stream(prompt: str) -> AsyncGenerator[str, None]:
     """
     Sequentially yields text chunks from Gemini in proper order.
@@ -27,13 +28,13 @@ async def generate_stream(prompt: str) -> AsyncGenerator[str, None]:
     final_prompt = SYSTEM_PROMPT + "\nUser: " + prompt
 
     for part in client.models.generate_content_stream(
-        model="gemini-2.5-flash",
-        contents=[final_prompt]
+        model="gemini-2.5-flash", contents=[final_prompt]
     ):
         text = getattr(part, "text", None) or getattr(part, "delta", None)
         if text:
             yield text
         await asyncio.sleep(0)
+
 
 async def event_stream(prompt: str) -> AsyncGenerator[str, None]:
     """

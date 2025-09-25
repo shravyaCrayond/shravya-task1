@@ -1,11 +1,9 @@
-import structlog
+import logging
+
 
 def configure_logging():
-    structlog.configure(
-        processors=[
-            structlog.processors.TimeStamper(fmt="iso"),
-            structlog.processors.JSONRenderer(),
-        ]
-    )
+    LOG_FORMAT = "%(asctime)s - %(name)s -" " " "%(levelname)s - %(message)s"
+    logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 
-logger = structlog.get_logger()
+
+logger = logging.getLogger("fastapi_app")

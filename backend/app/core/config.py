@@ -1,8 +1,8 @@
 from pydantic_settings import BaseSettings
-from pydantic import AnyUrl
+
 
 class Settings(BaseSettings):
-    DATABASE_URL: AnyUrl
+    DATABASE_URL: str
     REDIS_URL: str
     GEMINI_API_KEY: str
     ALLOWED_ORIGINS: str = "*"
@@ -10,5 +10,6 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
 
 settings = Settings()
